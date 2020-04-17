@@ -36,9 +36,18 @@ function createModules(moduleHeight) {
     }
 };
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * Math.floor(max));
+}
+
+
 const modules = document.querySelectorAll('.module');
 modules.forEach(mod => mod.addEventListener('mouseenter', changeColor));
 
 function changeColor(e) {
-    e.target.style.backgroundColor = 'red'; 
+    const r = getRandomInt(256);
+    const b = getRandomInt(256);
+    const g = getRandomInt(256);
+    e.target.style.backgroundColor = `rgb(${r},${g},${b})`; 
 }
+
