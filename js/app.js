@@ -5,7 +5,9 @@ const headerHeight = header.offsetHeight;
 const percentPageHeight = .9;
 const gridColumns = 16;
 const borderWidth = 1;
-
+let hVal = 0;
+let lVal = 50;
+let hoverCount = 0;
 
 
 setGridDimensions();
@@ -45,9 +47,8 @@ const modules = document.querySelectorAll('.module');
 modules.forEach(mod => mod.addEventListener('mouseenter', changeColor));
 
 function changeColor(e) {
-    const r = getRandomInt(256);
-    const b = getRandomInt(256);
-    const g = getRandomInt(256);
-    e.target.style.backgroundColor = `rgb(${r},${g},${b})`; 
+    let hslVal = `hsl(${hVal}, 100%, ${lVal}%)`;
+    this.style.backgroundColor = hslVal; 
+    hVal += 3;
 }
 
