@@ -2,6 +2,7 @@ const header = document.querySelector('header');
 const container = document.querySelector('.container');
 const browserHeight = window.innerHeight;
 const headerHeight = header.offsetHeight;
+const gridSizeButton = document.querySelector('.grid-size-btn')
 const percentPageHeight = .9;
 const borderWidth = 1;
 let hVal = 0;
@@ -33,10 +34,14 @@ function createModules(moduleHeight, gridColumns) {
         module.setAttribute('data-hover-count', '0');
         container.appendChild(module);
     }
+
+    createHoverEffect();
 };
 
-const modules = document.querySelectorAll('.module');
-modules.forEach(mod => mod.addEventListener('mouseenter', changeColor));
+function createHoverEffect() {
+    const modules = document.querySelectorAll('.module');
+    modules.forEach(mod => mod.addEventListener('mouseenter', changeColor));
+}
 
 function changeColor(e) {
     const elem = e.target;
@@ -54,4 +59,13 @@ function changeColor(e) {
     hVal += 3;
     
     elem.setAttribute('data-hover-count', `${elemHoverCount += 1}`);
+}
+
+gridSizeButton.addEventListener('click', modifyGridSize);
+
+function modifyGridSize() {
+    container.innerHTML = "";
+    
+    var modifiedEASHeight = Number(prompt('Please enter size:', '16'));
+    calcModuleDimensions(615.590, modifiedEASHeight);
 }
