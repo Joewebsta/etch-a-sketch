@@ -2,11 +2,16 @@ const header = document.querySelector('header');
 const container = document.querySelector('.container');
 const browserHeight = window.innerHeight;
 const headerHeight = header.offsetHeight;
+const percentPageHeight = .9;
 const gridColumns = 16;
 const borderWidth = 1;
 
+
+
+setGridDimensions();
+
 function setGridDimensions() {
-    const gridHeight = (browserHeight - headerHeight) * .9;
+    const gridHeight = (browserHeight - headerHeight) * percentPageHeight;
     container.setAttribute('style', `height: ${gridHeight}px; width: ${gridHeight}px`);
     
     calcModuleDimensions(gridHeight);
@@ -31,8 +36,9 @@ function createModules(moduleHeight) {
     }
 };
 
-function initialize() {
-    setGridDimensions();
-};
+const modules = document.querySelectorAll('.module');
+modules.forEach(mod => mod.addEventListener('mouseenter', changeColor));
 
-initialize()
+function changeColor(e) {
+    e.target.style.backgroundColor = 'red'; 
+}
