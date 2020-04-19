@@ -1,18 +1,28 @@
 const header = document.querySelector('header');
 const container = document.querySelector('.container');
-const browserHeight = window.innerHeight;
-const headerHeight = header.offsetHeight;
-const gridSizeButton = document.querySelector('.grid-size-btn')
+const browserHeight = Math.floor(window.innerHeight);
+const headerHeight = Math.floor(header.offsetHeight);
+const gridSizeButton = document.querySelector('.grid-size-btn');
 const percentPageHeight = .9;
 const borderWidth = 1;
 let hVal = 0;
 
 setGridDimensions();
 
+function makeIntAndEven(num) {
+    const intNum = Math.floor(num);
+    return intNum % 2 === 0 ? intNum : intNum + 1;
+}
+
+function calcEASHeight(browserHeight, headerHeight, percentPageHeight) {
+    return (browserHeight - headerHeight) * percentPageHeight;
+}
+
 function setGridDimensions() {
-    const etchASketchHeight = (browserHeight - headerHeight) * percentPageHeight;
+    const etchASketchHeight = calcEASHeight(browserHeight, headerHeight, percentPageHeight);
+    console.log(etchASketchHeight); 
     container.setAttribute('style', `height: ${etchASketchHeight}px; width: ${etchASketchHeight}px`);
-    
+
     calcModuleDimensions(etchASketchHeight);
 }
 
@@ -64,8 +74,9 @@ function changeColor(e) {
 gridSizeButton.addEventListener('click', modifyGridSize);
 
 function modifyGridSize() {
+    const etchASketchHeight = calcEASHeight(browserHeight, headerHeight, percentPageHeight);
     container.innerHTML = "";
     
     var modifiedEASHeight = Number(prompt('Please enter size:', '16'));
-    calcModuleDimensions(615.590, modifiedEASHeight);
+    calcModuleDimensions(etchASketchHeight, modifiedEASHeight);
 }
