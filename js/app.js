@@ -1,10 +1,10 @@
 const header = document.querySelector('header');
 const container = document.querySelector('.container');
-const browserHeight = Math.floor(window.innerHeight);
-const headerHeight = Math.floor(header.offsetHeight);
+const browserHeight = window.innerHeight;
+const headerHeight = header.offsetHeight;
 const gridSizeButton = document.querySelector('.grid-size-btn');
 const gridResetButton = document.querySelector('.grid-reset-btn');
-const percentPageHeight = .9;
+const percentPageHeight = .88;
 const borderWidth = 0;
 let hVal = 210;
 
@@ -75,7 +75,6 @@ function changeGridSize() {
     const etchASketchHeight = calcEASHeight(browserHeight, headerHeight, percentPageHeight);
     let modifiedEASHeight = "";
     container.innerHTML = "";
-    
     
     do {
         modifiedEASHeight = Number(prompt('Please enter a grid size (i.e. number of columns and rows):', colNum));
