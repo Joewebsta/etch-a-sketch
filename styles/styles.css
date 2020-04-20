@@ -20,13 +20,13 @@ body {
 
 header {
     text-align: center;
-    padding: 10px 0 30px;
+    padding: 10px 0 20px;
 }
 
 .btn {
     width: 158px;
     font-size: 14px;
-    padding: 8px 10px;
+    padding: 8px 0;
     border: none;
     color: white;
     background: #2DAAB0;

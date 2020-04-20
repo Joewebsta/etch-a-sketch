@@ -5,7 +5,7 @@ const headerHeight = Math.floor(header.offsetHeight);
 const gridSizeButton = document.querySelector('.grid-size-btn');
 const gridResetButton = document.querySelector('.grid-reset-btn');
 const percentPageHeight = .9;
-const borderWidth = 1;
+const borderWidth = 0;
 let hVal = 210;
 
 gridResetButton.addEventListener('click', resetGrid);
@@ -13,15 +13,15 @@ gridSizeButton.addEventListener('click', changeGridSize);
 
 setGridDimensions();
 
-function calcEASHeight(browserHeight, headerHeight, percentPageHeight) {
-    return (browserHeight - headerHeight) * percentPageHeight;
-}
-
 function setGridDimensions() {
     const etchASketchHeight = calcEASHeight(browserHeight, headerHeight, percentPageHeight);
     container.setAttribute('style', `height: ${etchASketchHeight}px; width: ${etchASketchHeight}px`);
 
     calcModuleDimensions(etchASketchHeight);
+}
+
+function calcEASHeight(browserHeight, headerHeight, percentPageHeight) {
+    return (browserHeight - headerHeight) * percentPageHeight;
 }
 
 function calcModuleDimensions(etchASketchHeight, gridColumns = 16) {
@@ -64,18 +64,23 @@ function changeColor(e) {
         hslVal = `hsl(${hVal}, 100%, ${lVal}%)`;
         this.style.backgroundColor = hslVal; 
     }
-    hVal += 3;
+    hVal += 4;
     
     elem.setAttribute('data-hover-count', `${elemHoverCount += 1}`);
 }
 
 function changeGridSize() {
     const modules = getModules();
-    const colNum = Math. sqrt(modules.length);
+    const colNum = Math.sqrt(modules.length);
     const etchASketchHeight = calcEASHeight(browserHeight, headerHeight, percentPageHeight);
+    let modifiedEASHeight = "";
     container.innerHTML = "";
     
-    let modifiedEASHeight = Number(prompt('Please enter a grid size (i.e. number of columns and rows):', colNum));
+    
+    do {
+        modifiedEASHeight = Number(prompt('Please enter a grid size (i.e. number of columns and rows):', colNum));
+    } while (isNaN(modifiedEASHeight) || modifiedEASHeight === 0)
+    
     calcModuleDimensions(etchASketchHeight, modifiedEASHeight);
 }
 
