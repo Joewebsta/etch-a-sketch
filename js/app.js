@@ -3,16 +3,15 @@ const container = document.querySelector('.container');
 const browserHeight = Math.floor(window.innerHeight);
 const headerHeight = Math.floor(header.offsetHeight);
 const gridSizeButton = document.querySelector('.grid-size-btn');
+const gridResetButton = document.querySelector('.grid-reset-btn');
 const percentPageHeight = .9;
 const borderWidth = 1;
-let hVal = 0;
+let hVal = 210;
+
+gridResetButton.addEventListener('click', resetGrid);
+gridSizeButton.addEventListener('click', changeGridSize);
 
 setGridDimensions();
-
-function makeIntAndEven(num) {
-    const intNum = Math.floor(num);
-    return intNum % 2 === 0 ? intNum : intNum + 1;
-}
 
 function calcEASHeight(browserHeight, headerHeight, percentPageHeight) {
     return (browserHeight - headerHeight) * percentPageHeight;
@@ -20,7 +19,6 @@ function calcEASHeight(browserHeight, headerHeight, percentPageHeight) {
 
 function setGridDimensions() {
     const etchASketchHeight = calcEASHeight(browserHeight, headerHeight, percentPageHeight);
-    console.log(etchASketchHeight); 
     container.setAttribute('style', `height: ${etchASketchHeight}px; width: ${etchASketchHeight}px`);
 
     calcModuleDimensions(etchASketchHeight);
@@ -49,7 +47,7 @@ function createModules(moduleHeight, gridColumns) {
 };
 
 function createHoverEffect() {
-    const modules = document.querySelectorAll('.module');
+    const modules = getModules();
     modules.forEach(mod => mod.addEventListener('mouseenter', changeColor));
 }
 
@@ -71,12 +69,22 @@ function changeColor(e) {
     elem.setAttribute('data-hover-count', `${elemHoverCount += 1}`);
 }
 
-gridSizeButton.addEventListener('click', modifyGridSize);
-
-function modifyGridSize() {
+function changeGridSize() {
+    const modules = getModules();
+    const colNum = Math. sqrt(modules.length);
     const etchASketchHeight = calcEASHeight(browserHeight, headerHeight, percentPageHeight);
     container.innerHTML = "";
     
-    var modifiedEASHeight = Number(prompt('Please enter size:', '16'));
+    let modifiedEASHeight = Number(prompt('Please enter a grid size (i.e. number of columns and rows):', colNum));
     calcModuleDimensions(etchASketchHeight, modifiedEASHeight);
 }
+
+function getModules() {
+    return document.querySelectorAll('.module');
+}
+
+function resetGrid() {
+    const modules = getModules();
+    modules.forEach(mod => mod.style.backgroundColor = "#FFF");  
+}
+
